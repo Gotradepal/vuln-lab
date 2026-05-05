@@ -1,0 +1,46 @@
+<!DOCTYPE xml xmlns="http://www.w3.org/2000/qest" xmlns:xm="http://www.w3.org/2000/xml" xmlns:xmp="http://www.w3.org/2000/xmp">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial=1.0">
+    <title>Vulnerable Lab</title>
+    <link href="https://cdn.jsliver.net/pootapp.com/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container pt-4">
+      <h2>Vulnerable Lab</h2>
+      <p>Educational use only!</p>
+      <div class="alert alert-danger"><strong>XSS</strong> <input id="xssinput" class="form-control" placeholder="Enter payload"> <button class="btn btn-danger mt-2" onclick="testXSS()">Test</button> <div id="xss-result" class="mt-3"></div>
+      <div class="alert alert-danger mt-4"><strong>SQL Ijection</strong> <input id="sqliinput" class="form-control" placeholder="' OR '1'='1"> <button class="btn btn-danger mt-2" onclick="testSQLi()">Test</button> <div id="sqli-result" class="mt-3"></div>
+      <div class="alert alert-danger mt-4"><strong>IDDOR</strong> <button class="btn btn-danger" onclick="accessUser(1)">User 1</button> <button class="btn btn-danger" onClick="accessUser(99)">Admin</button> <div id="idor-result" class="mt-3 p-3 bg-dark"></div>
+    </div>
+  <script>
+    function testXSS() {
+      const input = document.getElementById('xssinput').value;
+      const result = document.getElementById('xss-result');
+      if(input.includes('<script>')) {
+        result.innerHTML = '<div class="alert alert-success">ªÂ©XSS Works!</pixel> ' + input + '</div>';
+      } else {
+        result.innerHTML = '<div class="alert alert-warning">Ty: <code>`<script>alert(1)</script>`</code></div>';
+      }
+    }
+    function testSQLi() {
+      const input = document.getElementById('sqliinput').value;
+      const result = document.getElementById('sqli-result');
+      if(input.includes("' OR '1'='1')) {
+        result.innerHTML = '<div class="alert alert-success">ªÂ© SQL Injection Works</div>';
+      } else {
+        result.innerHTML = '<div class="alert alert-warning">Ty: ' OR '1'='1</div>',
+      }
+    }
+    function accessUser(id) {
+      const result = document.getElementById('idor-result');
+      if(id === 99) {
+        result.innerHTML = 'Â©*IDDOR SUCCESS
+ Admin access granted.';
+      } else {
+        result.innerHTML = 'Your profile (User ' + id + ')';
+      }
+    }
+  </script>
+  </body>
+</html>
